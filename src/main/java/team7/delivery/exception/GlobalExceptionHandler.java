@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<Map<String, Object>> handleCustomException (CustomException e) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        return getErrorResponse(status, e.getMessage);
+        return getErrorResponse(status, e.getMessage());
 
     }
 
