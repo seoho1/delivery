@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<Map<String, Object>> handleCustomException (CustomException e) {
+    public ResponseEntity<Map<String, Object>> handleCustomException(CustomException e) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        return getErrorResponse(status, e.getMessage());
 
+        return getErrorResponse(status, e.getMessage());
     }
 
     public ResponseEntity<Map<String, Object>> getErrorResponse(HttpStatus status, String message) {
@@ -27,5 +27,4 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorResponse, status);
     }
-
 }
