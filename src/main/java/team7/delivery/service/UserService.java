@@ -26,10 +26,8 @@ public class UserService {
     }
 
     public void checkRegisteredUser(String email) {
-        User foundUser = userRepository.findByEmail(email).orElse(null);
-
-        if (foundUser == null) {
-            return;
+        if(userRepository.findByEmail(email).isPresent()){
+            throw new CustomException(HttpStatus.BAD_REQUEST,"이미 등록된 사용자입니다.");
         }
 
         throw new CustomException(HttpStatus.BAD_REQUEST, "등록하려는 이메일이 이미 존재합니다");
