@@ -22,6 +22,10 @@ public class Menu extends BaseEntity{
     @JoinColumn(name = "store_id")
     private Store store;
 
+    protected Menu() {
+
+    }
+
 
 
     public static Menu of(MenuRequestDto request, Store store) {

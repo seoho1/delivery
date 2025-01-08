@@ -16,7 +16,7 @@ import team7.delivery.service.UserService;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserService userService
     
     @PostMapping
     public ResponseEntity<UserCreateResponseDto> createUser(@Valid @RequestBody UserCreateRequestDto dto) {
