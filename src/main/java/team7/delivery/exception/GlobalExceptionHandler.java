@@ -27,4 +27,10 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorResponse, status);
     }
+
+    @ExceptionHandler(StoreException.class)
+    public ResponseEntity<String> handleLoginException(StoreException exception){
+        return new ResponseEntity<>(exception.getMessage(), exception.getHttpStatus());
+    }
+
 }
