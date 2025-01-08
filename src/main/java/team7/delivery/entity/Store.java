@@ -43,6 +43,10 @@ public Store(String storeName, int minPrice, String openTime, String closeTime, 
     this.closeTime = closeTime;
 //    this.owner = owner;
 }
+
+    public Store() {
+
+    }
 //
 //    public static Store of(String storeName, int minPrice, String openTime, String closeTime, Owner owner) {
 //    return new Store(storeName, minPrice, openTime, closeTime, owner};{

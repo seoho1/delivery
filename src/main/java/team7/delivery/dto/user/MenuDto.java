@@ -1,6 +1,5 @@
-package team7.delivery.dto.menu;
+package team7.delivery.dto.user;
 
-//import com.example.memo.entity.Menu;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,3 +23,4 @@ public class MenuDto {
         );
     }
 }
+

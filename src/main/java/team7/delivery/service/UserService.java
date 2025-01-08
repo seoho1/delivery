@@ -1,7 +1,6 @@
 package team7.delivery.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import team7.delivery.dto.user.UserCreateResponseDto;
 import team7.delivery.entity.User;
@@ -14,11 +13,13 @@ public class UserService {
     private final UserRepository userRepository;
 
 
-    public void createUser(String email, String password) {
-        
+    public UserCreateResponseDto createUser(String email, String password) {
+
         User user = User.of(email, password);
+
         User savedUser = userRepository.save(user);
 
         return UserCreateResponseDto.of(savedUser);
     }
 }
+

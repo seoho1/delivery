@@ -18,11 +18,11 @@ import team7.delivery.service.MenuService;
 @RequiredArgsConstructor
 public class MenuController {
 
-    private final MenuService menuService;
-    @PostMapping
-    public ResponseEntity<MenuDto> CreateMemo(@Valid @RequestBody MenuRequestDto request, HttpSession session){
-        return new ResponseEntity<>(menuService.CreateMemo(request), HttpStatus.CREATED);
-    }
+//    private final MenuService menuService;
+//    @PostMapping
+//    public ResponseEntity<MenuDto> CreateMemo(@Valid @RequestBody MenuRequestDto request, HttpSession session){
+//        return new ResponseEntity<>(menuService.CreateMemo(request), HttpStatus.CREATED);
+//    }
 
 //    @PutMapping("/{menusId}")
 //    public ResponseEntity<MenuDto> updateMemo(@PathVariable Long storeId,@Valid @RequestBody MenuRequestDto request){

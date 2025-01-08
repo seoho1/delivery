@@ -15,12 +15,17 @@ public class Menu extends BaseEntity{
     private Long id;
     private String name;
     private int price;
-    private String describe;
+
+    private String description;
     private boolean isDeleted;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
+
+    protected Menu() {
+
+    }
 
 
 
