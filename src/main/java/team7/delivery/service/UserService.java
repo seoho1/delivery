@@ -35,4 +35,12 @@ public class UserService {
         throw new CustomException(HttpStatus.BAD_REQUEST, "등록하려는 이메일이 이미 존재합니다");
     }
 
+    public void deactivateUser(Long id, String email, String password) {
+        User foundUser = userRepository.findById(id)
+                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
+
+        foundUser.deactivate();
+        userRepository.save(foundUser);
+    }
+
 }
