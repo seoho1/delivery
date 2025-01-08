@@ -2,6 +2,7 @@ package team7.delivery.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,12 +17,14 @@ import team7.delivery.service.UserService;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService
+    private final UserService userService;
     
     @PostMapping
     public ResponseEntity<UserCreateResponseDto> createUser(@Valid @RequestBody UserCreateRequestDto dto) {
 
-        return new ResponseEntity<>(userService.createUser(dto.getEmail(), dto.getPassword()), HttpStaus.C);
+        UserCreateResponseDto user = userService.createUser(dto.getEmail(), dto.getPassword());
+
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
 
     }
 
