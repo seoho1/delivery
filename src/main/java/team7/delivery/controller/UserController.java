@@ -1,7 +1,9 @@
 package team7.delivery.controller;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +23,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserCreateResponseDto> createUser(@Valid @RequestBody UserCreateRequestDto dto) {
 
-        return new ResponseEntity<>(userService.createUser(dto.getEmail(), dto.getPassword()), HttpStaus.C);
+        return new ResponseEntity<>(userService.createUser(dto.getEmail(), dto.getPassword()),HttpStatus.CREATED);
 
     }
 

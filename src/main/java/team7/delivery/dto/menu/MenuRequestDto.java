@@ -18,6 +18,9 @@ public class MenuRequestDto {
         this.describe = describe;
     }
 
+    public MenuRequestDto() {
+    }
+
     public Integer getStore_id() {
         return store_id;
     }

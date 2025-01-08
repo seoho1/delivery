@@ -24,6 +24,16 @@ public class MenuController {
         return new ResponseEntity<>(menuService.CreateMemo(request), HttpStatus.CREATED);
     }
 
+//    @PutMapping("/{menusId}")
+//    public ResponseEntity<MenuDto> updateMemo(@PathVariable Long storeId,@Valid @RequestBody MenuRequestDto request){
+//        return new ResponseEntity<>(menuService.updateMemo())
+//    }
+//
+//    @PutMapping("/{commentId}")
+//    public ResponseEntity<CommentDto> updateComment(@PathVariable Long commentId,@Valid @RequestBody UpdateCommentRequest request) {
+//        return new ResponseEntity<>(commentService.updateComment(commentId,request), HttpStatus.OK);
+//    }
+
 }
 
 

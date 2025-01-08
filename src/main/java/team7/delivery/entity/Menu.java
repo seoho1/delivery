@@ -4,7 +4,7 @@ package team7.delivery.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import team7.delivery.dto.user.MenuRequestDto;
+import team7.delivery.dto.menu.MenuRequestDto;
 
 @Getter
 @AllArgsConstructor
