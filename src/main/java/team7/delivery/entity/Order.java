@@ -2,11 +2,9 @@ package team7.delivery.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "orders")
 public class Order extends BaseEntity{
 
@@ -25,4 +23,11 @@ public class Order extends BaseEntity{
     @Column
     private String status;
 
+    public Order(User user, Menu menu) {
+        super();
+    }
+
+    public Order() {
+
+    }
 }
