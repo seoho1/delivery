@@ -3,6 +3,7 @@ package team7.delivery.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import team7.delivery.dto.order.OrderResponseDto;
 import team7.delivery.entity.Menu;
 import team7.delivery.entity.Order;
 import team7.delivery.entity.User;
@@ -28,4 +29,8 @@ public class OrderService {
         return orderRepository.save(new Order(user, menu));
     }
 
+    public OrderResponseDto getOrderStatus(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("order not found"));
+        return OrderResponseDto.of(order);
+    }
 }
