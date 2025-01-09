@@ -30,7 +30,7 @@ public class StoreService {
     }
 
     public List<StoreResponseDto> getStoresByName(String storeName) {
-        List<Store> stores = storeRepository.findByStoreNameContaining(storeName);
+        List<Store> stores = storeRepository.findByStoreNameContainingAndIsDeletedFalse(storeName);
         return stores.stream()
                 .map(StoreResponseDto::of)
                 .collect(Collectors.toList());
@@ -54,5 +54,16 @@ public class StoreService {
 
         Store savedStore = storeRepository.save(store);
         return StoreResponseDto.of(savedStore);
+    }
+
+    public void deleteStore(Long storeId, Owner owner) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new StoreException("가게를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
+        if (!store.getOwner().equals(owner)) {
+            throw new StoreException("가게를 삭제할 권한이 없습니다.", HttpStatus.NOT_FOUND);
+        }
+
+        store.setDeleted(true);
+        storeRepository.save(store);
     }
 }

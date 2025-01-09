@@ -45,4 +45,10 @@ public class StoreController {
         StoreResponseDto updatedStore = storeService.updateStore(storeId, requestDto, owner);
         return new ResponseEntity<>(updatedStore, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{storeId}")
+    public ResponseEntity<String> deleteStore(@PathVariable Long storeId, @RequestAttribute Owner owner) {
+        storeService.deleteStore(storeId, owner);
+        return new ResponseEntity<>("가게가 폐업 상태로 변경되었습니다. 가게를 새로 추가할 수 있습니다.", HttpStatus.OK);
+    }
 }
