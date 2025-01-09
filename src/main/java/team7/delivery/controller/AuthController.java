@@ -1,8 +1,10 @@
 package team7.delivery.controller;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.RequestEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +21,11 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signin")
-    public RequestEntity<SigninResponseDto> signin(@Valid @RequestBody SigninRequestDto dto) {
-        return authService.signin(dto);
+    public ResponseEntity<SigninResponseDto> signin(@Valid @RequestBody SigninRequestDto dto, HttpSession session) {
+        SigninResponseDto user = authService.signin(dto.getEmail(), dto.getPassword());
+        session.setAttribute("user", user.getId());
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 }
