@@ -3,6 +3,7 @@ package team7.delivery.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import team7.delivery.dto.store.StoreRequestDto;
 import team7.delivery.dto.store.StoreResponseDto;
 import team7.delivery.entity.Owner;
@@ -41,6 +42,7 @@ public class StoreService {
         return StoreResponseDto.of(store);
     }
 
+    @Transactional
     public StoreResponseDto updateStore(Long storeId, StoreRequestDto requestDto, Owner owner) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new StoreException("가게를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
