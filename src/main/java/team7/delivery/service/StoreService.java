@@ -40,17 +40,4 @@ public class StoreService {
                 .orElseThrow(() -> new StoreException("가게를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
         return StoreResponseDto.of(store);
     }
-
-    public StoreResponseDto updateStore(Long storeId, StoreRequestDto requestDto, Owner owner) {
-        Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new StoreException("가게를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
-        if (!store.getOwner().equals(owner)) {
-            throw new StoreException("가게를 수정할 권한이 없습니다", HttpStatus.FORBIDDEN);
-        }
-
-        store.update(requestDto.getStoreName(), requestDto.getMinPrice(), requestDto.getOpenTime(), requestDto.getCloseTime());
-
-        Store savedStore = storeRepository.save(store);
-        return StoreResponseDto.of(savedStore);
-    }
 }
