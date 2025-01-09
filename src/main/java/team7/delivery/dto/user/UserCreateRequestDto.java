@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import team7.delivery.dto.auth.Role;
+import team7.delivery.exception.EnumValidator;
 
 @RequiredArgsConstructor
 @Getter
@@ -26,6 +27,7 @@ public class UserCreateRequestDto {
     private final String password;
 
     @NotNull
-    private final Role role;
+    @EnumValidator(enumClass = Role.class, message = "Invalid Role")
+    private final String role;
 
 }

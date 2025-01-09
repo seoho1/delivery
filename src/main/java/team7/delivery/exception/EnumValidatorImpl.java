@@ -2,7 +2,6 @@ package team7.delivery.exception;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import team7.delivery.dto.auth.Role;
 
 public class EnumValidatorImpl implements ConstraintValidator<EnumValidator, String> {
 
@@ -10,21 +9,20 @@ public class EnumValidatorImpl implements ConstraintValidator<EnumValidator, Str
 
     @Override
     public void initialize(EnumValidator constraintAnnotation) {
-        this.enumClass = Role.class;
+        this.enumClass = constraintAnnotation.enumClass();
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        if (value == null){
+        if (value == null) {
             return false;
         }
 
         try {
-            @SuppressWarnings("unchecked")
-            Class<? extends Enum> enumType = (Class<? extends Enum>) enumClass;
-            Enum.valueOf(enumType, value);
+
+            Enum.valueOf((Class<Enum>) enumClass.asSubclass(Enum.class), value.toUpperCase());
             return true;
-        } catch (CustomException e) {
+        } catch (IllegalArgumentException e) {
             return false;
         }
     }
