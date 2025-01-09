@@ -3,7 +3,7 @@ package team7.delivery.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import team7.delivery.dto.auth.SigninResponseDto;
+import team7.delivery.dto.auth.LoginResponseDto;
 import team7.delivery.entity.User;
 import team7.delivery.exception.CustomException;
 import team7.delivery.repository.UserRepository;
@@ -15,7 +15,7 @@ public class AuthService {
     private final UserRepository userRepository;
 
 
-    public SigninResponseDto signin(String email, String password) {
+    public LoginResponseDto login(String email, String password) {
         User foundUser = userRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(HttpStatus.BAD_REQUEST, "가입되지 않은 유저입니다"));
 
@@ -23,6 +23,6 @@ public class AuthService {
             throw new CustomException(HttpStatus.BAD_REQUEST, "잘못된 비밀번호 입니다.");
         }
 
-        return SigninResponseDto.of(foundUser);
+        return LoginResponseDto.of(foundUser);
     }
 }

@@ -6,7 +6,7 @@ import team7.delivery.entity.User;
 
 @Getter
 @RequiredArgsConstructor
-public class SigninResponseDto {
+public class LoginResponseDto {
 
     private final Long id;
 
@@ -15,8 +15,8 @@ public class SigninResponseDto {
     private final String role;
 
 
-    public static SigninResponseDto of(User user) {
-        return new SigninResponseDto(
+    public static LoginResponseDto of(User user) {
+        return new LoginResponseDto(
                 user.getId(),
                 user.getEmail(),
                 user.getRole()
