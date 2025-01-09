@@ -19,7 +19,7 @@ public class MenuDto {
         return new MenuDto(
                 menu.getName(),
                 menu.getPrice(),
-                menu.getDescribe()
+                menu.getDescription()
         );
     }
 }
