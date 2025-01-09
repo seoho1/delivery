@@ -1,6 +1,5 @@
 package team7.delivery.service;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,8 +27,6 @@ public class UserService {
 
     public void checkRegisteredUser(String email) {
 
-        Optional<User> user = userRepository.findByEmail(email);
-        System.out.println("findByEmail 결과: " + user);
         if(userRepository.findByEmail(email).isPresent()){
             throw new CustomException(HttpStatus.BAD_REQUEST,"이미 등록된 사용자입니다.");
         }
