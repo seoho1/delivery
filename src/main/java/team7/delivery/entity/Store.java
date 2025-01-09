@@ -50,6 +50,10 @@ public class Store extends BaseEntity{
         this.closeTime = closeTime;
     }
 
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
         public static Store of (String storeName,int minPrice, String openTime, String closeTime, Owner owner) {
             return new Store(storeName, minPrice, openTime, closeTime, owner);
     }
