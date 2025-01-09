@@ -1,11 +1,13 @@
 package team7.delivery.dto.user;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import team7.delivery.entity.User;
 
 import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
+@Getter
 public class UserCreateResponseDto {
 
     private final String email;

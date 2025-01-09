@@ -23,12 +23,12 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final StoreRepository storeRepository;
 
-    public MenuDto CreateMemo(MenuRequestDto request/* int store_id*/){
-        Store store = storeRepository.findById(request.getStore_id()).orElseThrow(() -> new StoreException("가게가 없습니다.", HttpStatus.NOT_FOUND));
-        Menu menu = Menu.of(request,store);
-        menuRepository.save(menu);
-        return menuDto(menu);
-    }
+//    public MenuDto CreateMemo(MenuRequestDto request/* int store_id*/){
+//        Store store = storeRepository.findById(request.getStore_id()).orElseThrow(() -> new StoreException("가게가 없습니다.", HttpStatus.NOT_FOUND));
+//        Menu menu = Menu.of(request,store);
+//        menuRepository.save(menu);
+//        return menuDto(menu);
+//    }
 
     private MenuDto menuDto(Menu menu) {
         return MenuDto.menuDto(menu);
