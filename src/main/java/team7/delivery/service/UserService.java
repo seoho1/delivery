@@ -1,6 +1,5 @@
 package team7.delivery.service;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,11 +14,11 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserCreateResponseDto createUser(String email, String password, String role) {
+    public UserCreateResponseDto createUser(String email, String password) {
 
         checkRegisteredUser(email);
 
-        User user = User.of(email, password, role);
+        User user = User.of(email, password);
 
         User savedUser = userRepository.save(user);
 
@@ -27,12 +26,11 @@ public class UserService {
     }
 
     public void checkRegisteredUser(String email) {
-
-        Optional<User> user = userRepository.findByEmail(email);
-        System.out.println("findByEmail 결과: " + user);
         if(userRepository.findByEmail(email).isPresent()){
             throw new CustomException(HttpStatus.BAD_REQUEST,"이미 등록된 사용자입니다.");
         }
+
+        throw new CustomException(HttpStatus.BAD_REQUEST, "등록하려는 이메일이 이미 존재합니다");
     }
 
     public void deactivateUser(Long id, String email, String password) {
