@@ -1,6 +1,5 @@
 package team7.delivery.controller;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team7.delivery.dto.user.UserCreateRequestDto;
 import team7.delivery.dto.user.UserCreateResponseDto;
 import team7.delivery.service.UserService;
+
 
 @RestController
 @RequestMapping("/users")

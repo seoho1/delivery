@@ -18,21 +18,28 @@ import team7.delivery.service.MenuService;
 @RequiredArgsConstructor
 public class MenuController {
 
-//    private final MenuService menuService;
-//    @PostMapping
-//    public ResponseEntity<MenuDto> CreateMemo(@Valid @RequestBody MenuRequestDto request, HttpSession session){
-//        return new ResponseEntity<>(menuService.CreateMemo(request), HttpStatus.CREATED);
-//    }
+    private final MenuService menuService;
 
-//    @PutMapping("/{menusId}")
-//    public ResponseEntity<MenuDto> updateMemo(@PathVariable Long storeId,@Valid @RequestBody MenuRequestDto request){
-//        return new ResponseEntity<>(menuService.updateMemo())
-//    }
-//
-//    @PutMapping("/{commentId}")
-//    public ResponseEntity<CommentDto> updateComment(@PathVariable Long commentId,@Valid @RequestBody UpdateCommentRequest request) {
-//        return new ResponseEntity<>(commentService.updateComment(commentId,request), HttpStatus.OK);
-//    }
+    @PostMapping
+    public ResponseEntity<MenuDto> CreateMemu(@Valid @RequestBody MenuRequestDto request, HttpSession session){
+        return new ResponseEntity<>(menuService.CreateMemu(request), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{menusId}")
+    public ResponseEntity<MenuDto> getMenu(@PathVariable Long menusId) {
+        return new ResponseEntity<>(menuService.getMenu(menusId), HttpStatus.OK);
+    }
+
+    @PutMapping("/{menusId}")
+    public ResponseEntity<MenuDto> updateMemu(@PathVariable Long menusId,@Valid @RequestBody MenuRequestDto request){
+        return new ResponseEntity<>(menuService.updateMenu(menusId,request), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{menusId}")
+    public ResponseEntity<Void> deleteMenu(@PathVariable Long menusId){
+        menuService.deleteMenu(menusId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
 

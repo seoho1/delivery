@@ -24,15 +24,34 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final StoreRepository storeRepository;
 
-    public MenuDto CreateMemo(MenuRequestDto request/* int store_id*/){
-        Store store = (Store) storeRepository.findById(request.getStore_id()).orElseThrow(() -> new StoreException("가게가 없습니다.", HttpStatus.NOT_FOUND));
+    public MenuDto CreateMemu(MenuRequestDto request/* int store_id*/){
+        Store store = storeRepository.findById(request.getStore_id()).orElseThrow(() -> new StoreException("가게가 없습니다.", HttpStatus.NOT_FOUND));
         Menu menu = Menu.of(request,store);
         menuRepository.save(menu);
         return menuDto(menu);
+//        return MenuDto.menuDto(menu)
     }
 
+    public MenuDto getMenu(Long menuId){
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new StoreException("메뉴가 없습니다.",HttpStatus.NOT_FOUND));
+        return menuDto(menu);
+    }
+
+    public MenuDto updateMenu(Long menusId,MenuRequestDto request){
+        Menu menu = menuRepository.findById(menusId)
+                .orElseThrow(()-> new StoreException("수정 메뉴가 없습니다.",HttpStatus.NOT_FOUND));
+        Menu.off(menusId,request);
+        menuRepository.save(menu);
+        return menuDto(menu);
+
+    }
+    public void deleteMenu(Long menusId){
+        menuRepository.deleteById(menusId);
+    }
     private MenuDto menuDto(Menu menu) {
         return MenuDto.menuDto(menu);
     }
+//    MenuDto.menu(){return MenuDto.menuDto(menu);}
 
 }

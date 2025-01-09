@@ -11,7 +11,7 @@ public class MenuRequestDto {
     private int price;
     private String describe;
 
-    public MenuRequestDto(Integer store_id, String name, int price, String describe) {
+    public MenuRequestDto(Integer store_id ,String name, int price, String describe) {
         this.store_id = store_id;
         this.name = name;
         this.price = price;
@@ -21,8 +21,9 @@ public class MenuRequestDto {
     public MenuRequestDto() {
     }
 
-    public Integer getStore_id() {
-        return store_id;
-    }
+//    public Integer getStore_id() {
+//        return store_id;
+//    }
+
 }
 
