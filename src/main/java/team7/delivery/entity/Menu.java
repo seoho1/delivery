@@ -15,16 +15,21 @@ public class Menu extends BaseEntity{
     private Long id;
     private String name;
     private int price;
-    private String describe;
+
+    private String description;
     private boolean isDeleted;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
+    protected Menu() {
 
-
-    public static Menu of(MenuRequestDto request, Store store) {
-        return new Menu(null, request.getName(),request.getPrice(),request.getDescribe(),false, store);
     }
+
+
+
+//    public static Menu of(MenuRequestDto request, Store store) {
+//        return new Menu(null, request.getName(),request.getPrice(),request.getDescribe(),false, store);
+//    }
 }
