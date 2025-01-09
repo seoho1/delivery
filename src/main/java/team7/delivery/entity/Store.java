@@ -4,12 +4,10 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
 @Table(name = "stores")
-@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Store extends BaseEntity{
 
@@ -43,6 +41,13 @@ public class Store extends BaseEntity{
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.owner = owner;
+    }
+
+    public void update(String storeName, int minPrice, String openTime, String closeTime) {
+        this.storeName = storeName;
+        this.minPrice = minPrice;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
     }
 
         public static Store of (String storeName,int minPrice, String openTime, String closeTime, Owner owner) {

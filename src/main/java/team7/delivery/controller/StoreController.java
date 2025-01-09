@@ -37,4 +37,12 @@ public class StoreController {
         StoreResponseDto store = storeService.getStoreById(storeId);
         return new ResponseEntity<>(store, HttpStatus.OK);
     }
+
+    @PutMapping("/{storeId}")
+    public ResponseEntity<StoreResponseDto> updateStore(@PathVariable Long storeId,
+                                                        @Valid @RequestBody StoreRequestDto requestDto,
+                                                        @RequestAttribute Owner owner) {
+        StoreResponseDto updatedStore = storeService.updateStore(storeId, requestDto, owner);
+        return new ResponseEntity<>(updatedStore, HttpStatus.OK);
+    }
 }
