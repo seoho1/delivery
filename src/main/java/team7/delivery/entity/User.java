@@ -32,13 +32,14 @@ public class User extends BaseEntity {
 
     }
 
-    private User(String email, String password){
+    private User(String email, String password, Role role){
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
-    public static User of(String email, String password) {
-        return new User(email, password);
+    public static User of(String email, String password, Role role) {
+        return new User(email, password, role);
     }
 
     public void deactivate() {
