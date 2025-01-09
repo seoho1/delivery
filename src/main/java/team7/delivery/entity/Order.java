@@ -3,12 +3,10 @@ package team7.delivery.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
 @Setter
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "orders")
 public class Order extends BaseEntity{
 
