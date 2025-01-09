@@ -12,7 +12,7 @@ public class SigninResponseDto {
 
     private final String email;
 
-    private final String role;
+    private final Role role;
 
 
     public static SigninResponseDto of(User user) {
