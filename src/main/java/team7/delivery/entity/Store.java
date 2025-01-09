@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Table(name = "stores")
 @EntityListeners(AuditingEntityListener.class)
-//@NoArgsConstructor(access = Access)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Store extends BaseEntity{
 
     @Id
@@ -34,8 +34,22 @@ public class Store extends BaseEntity{
   /*  @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private Owner owner;*/
+
+public Store(String storeName, int minPrice, String openTime, String closeTime, Owner owner) {
+    this.storeName = storeName;
+    this.minPrice = minPrice;
+    this.isDeleted = false;
+    this.openTime = openTime;
+    this.closeTime = closeTime;
+//    this.owner = owner;
+}
+
+    public Store() {
+
+    }
 //
-//    public static Store of(String storeName, int minPrice, String openTime, String closeTime, Owner owner){
+//    public static Store of(String storeName, int minPrice, String openTime, String closeTime, Owner owner) {
+//    return new Store(storeName, minPrice, openTime, closeTime, owner};{
 //
 //    }
 }

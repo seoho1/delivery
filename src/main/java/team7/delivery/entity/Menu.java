@@ -4,7 +4,7 @@ package team7.delivery.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import team7.delivery.dto.user.MenuRequestDto;
+import team7.delivery.dto.menu.MenuRequestDto;
 
 @Getter
 @AllArgsConstructor
@@ -12,19 +12,31 @@ import team7.delivery.dto.user.MenuRequestDto;
 public class Menu extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long menusId;
     private String name;
     private int price;
-    private String describe;
+
+    private String description;
     private boolean isDeleted;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
-
+    protected Menu() {
+    }
 
     public static Menu of(MenuRequestDto request, Store store) {
         return new Menu(null, request.getName(),request.getPrice(),request.getDescribe(),false, store);
     }
+
+    public static Menu off(Long menusId, MenuRequestDto request) {
+        return new Menu(menusId, request.getName(), request.getPrice(),request.getDescribe(), false, null);
+    }
+
+
+
+
+
+
 }

@@ -11,15 +11,19 @@ public class MenuRequestDto {
     private int price;
     private String describe;
 
-    public MenuRequestDto(Integer store_id, String name, int price, String describe) {
+    public MenuRequestDto(Integer store_id ,String name, int price, String describe) {
         this.store_id = store_id;
         this.name = name;
         this.price = price;
         this.describe = describe;
     }
 
-    public Integer getStore_id() {
-        return store_id;
+    public MenuRequestDto() {
     }
+
+//    public Integer getStore_id() {
+//        return store_id;
+//    }
+
 }
 

@@ -1,13 +1,14 @@
 package team7.delivery.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.processing.Pattern;
 
 @RequiredArgsConstructor
 @Getter
+
 public class UserCreateRequestDto {
 
     @Pattern(
