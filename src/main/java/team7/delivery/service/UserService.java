@@ -24,7 +24,7 @@ public class UserService {
 
         String encodedPassword = passwordEncoder.encode(password);
 
-        User user = User.of(email, encodedPassword);
+        User user = User.of(email, encodedPassword, role);
 
         User savedUser = userRepository.save(user);
 
