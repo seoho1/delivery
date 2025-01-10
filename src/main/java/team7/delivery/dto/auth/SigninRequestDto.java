@@ -1,17 +1,14 @@
-package team7.delivery.dto.user;
+package team7.delivery.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import team7.delivery.dto.auth.Role;
-import team7.delivery.exception.EnumValidator;
 
-@RequiredArgsConstructor
 @Getter
-public class UserCreateRequestDto {
+@RequiredArgsConstructor
+public class SigninRequestDto {
 
     @Pattern(
             regexp = "^[a-zA-Z0-9_]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
@@ -26,8 +23,7 @@ public class UserCreateRequestDto {
     @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
     private final String password;
 
-    @NotNull
-    @EnumValidator(enumClass = Role.class, message = "Invalid Role")
-    private final String role;
+
+
 
 }
