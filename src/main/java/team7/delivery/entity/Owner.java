@@ -9,18 +9,28 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "owners")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Owner {
+public class Owner extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String name;
-
-    @Column
     private String email;
 
     @Column
     private String password;
+
+    @Column
+    private boolean isOwner;
+
+    public Owner(String email, String password, boolean isOwner) {
+        this.email = email;
+        this.password = password;
+        this.isOwner = isOwner;
+    }
+
+    public boolean isOwner() {
+        return this.isOwner;
+    }
 }

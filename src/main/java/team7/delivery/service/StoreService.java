@@ -2,13 +2,19 @@ package team7.delivery.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team7.delivery.dto.menu.MenuDto;
+import team7.delivery.dto.store.StoreMenuResponseDto;
 import team7.delivery.dto.store.StoreRequestDto;
 import team7.delivery.dto.store.StoreResponseDto;
+import team7.delivery.entity.Menu;
 import team7.delivery.entity.Owner;
 import team7.delivery.entity.Store;
 import team7.delivery.exception.ApiException;
+import team7.delivery.exception.ExceptionUtil;
+import team7.delivery.exception.util.ErrorMessage;
 import team7.delivery.repository.MenuRepository;
 import team7.delivery.repository.StoreRepository;
 
@@ -23,9 +29,14 @@ public class StoreService {
     private final MenuRepository menuRepository;
 
     public StoreResponseDto createStore(StoreRequestDto requestDto, Owner owner) {
+
+        if (!owner.isOwner()) {
+            throw ExceptionUtil.throwErrorMessage(ErrorMessage.OWNER_FORBIDDEN, ApiException.class);
+        }
+
         long storeCount = storeRepository.countByOwnerAndIsDeletedFalse(owner);
         if (storeCount >= 3) {
-            throw new ApiException("사장님은 가게를 최대 3개까지만 운영할 수 있습니다.", HttpStatus.BAD_REQUEST);
+            throw ExceptionUtil.throwErrorMessage(ErrorMessage.MAX_STORE_LIMIT, ApiException.class);
         }
 
         Store store = Store.of(requestDto.getStoreName(), requestDto.getMinPrice(), requestDto.getOpenTime(), requestDto.getCloseTime(), owner);
@@ -43,17 +54,21 @@ public class StoreService {
 
     public StoreResponseDto getStoreById(Long storeId) {
         Store store = storeRepository.findByIdAndIsDeletedFalse(storeId)
-                .orElseThrow(() -> new ApiException("가게를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
-//        List<Menu> menus = menuRepository.findByStoreIdAndIsDeletedFalse(storeId);
-        return StoreResponseDto.of(store);
+                .orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.STORE_NOT_FOUND, ApiException.class));
+        List<Menu> menus = menuRepository.findByStoreIdAndIsDeletedFalse(storeId);
+        List<MenuDto> menuDtos = menus.stream()
+                .map(MenuDto::menuDto)
+                .collect(Collectors.toList());
+
+        return StoreMenuResponseDto.of(store, menuDtos);
     }
 
     @Transactional
     public StoreResponseDto updateStore(Long storeId, StoreRequestDto requestDto, Owner owner) {
         Store store = storeRepository.findByIdAndIsDeletedFalse(storeId)
-                .orElseThrow(() -> new ApiException("가게를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.STORE_NOT_FOUND, ApiException.class));
         if (!store.getOwner().equals(owner)) {
-            throw new ApiException("가게를 수정할 권한이 없습니다", HttpStatus.FORBIDDEN);
+            throw ExceptionUtil.throwErrorMessage(ErrorMessage.FORBIDDEN_UPDATE, ApiException.class);
         }
 
         store.update(requestDto.getStoreName(), requestDto.getMinPrice(), requestDto.getOpenTime(), requestDto.getCloseTime());
@@ -61,13 +76,14 @@ public class StoreService {
     }
 
     @Transactional
-    public void deleteStore(Long storeId, Owner owner) {
+    public ResponseEntity<String> deleteStore(Long storeId, Owner owner) {
         Store store = storeRepository.findByIdAndIsDeletedFalse(storeId)
-                .orElseThrow(() -> new ApiException("가게를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.STORE_NOT_FOUND, ApiException.class));
         if (!store.getOwner().equals(owner)) {
-            throw new ApiException("가게를 폐업할 권한이 없습니다.", HttpStatus.NOT_FOUND);
+            throw ExceptionUtil.throwErrorMessage(ErrorMessage.FORBIDDEN_DELETE, ApiException.class);
         }
 
         store.setDeleted(true);
+        return ResponseEntity.noContent().build();
     }
 }

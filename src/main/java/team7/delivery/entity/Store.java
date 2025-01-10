@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
+
 @Entity
 @Getter
 @Table(name = "stores")
@@ -26,16 +28,16 @@ public class Store extends BaseEntity{
     private boolean isDeleted;
 
     @Column
-    private String openTime;
+    private LocalTime openTime;
 
     @Column
-    private String closeTime;
+    private LocalTime closeTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private Owner owner;
 
-    public Store(String storeName, int minPrice, String openTime, String closeTime, Owner owner) {
+    public Store(String storeName, int minPrice, LocalTime openTime, LocalTime closeTime, Owner owner) {
         this.storeName = storeName;
         this.minPrice = minPrice;
         this.isDeleted = false;
@@ -44,7 +46,7 @@ public class Store extends BaseEntity{
         this.owner = owner;
     }
 
-    public void update(String storeName, int minPrice, String openTime, String closeTime) {
+    public void update(String storeName, int minPrice, LocalTime openTime, LocalTime closeTime) {
         this.storeName = storeName;
         this.minPrice = minPrice;
         this.openTime = openTime;
@@ -55,7 +57,7 @@ public class Store extends BaseEntity{
         isDeleted = deleted;
     }
 
-        public static Store of (String storeName,int minPrice, String openTime, String closeTime, Owner owner) {
+        public static Store of (String storeName,int minPrice, LocalTime openTime, LocalTime closeTime, Owner owner) {
             return new Store(storeName, minPrice, openTime, closeTime, owner);
     }
 
