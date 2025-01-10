@@ -9,6 +9,7 @@ import team7.delivery.dto.order.CreateOrderRequestDto;
 import team7.delivery.dto.order.OrderResponseDto;
 import team7.delivery.entity.Order;
 import team7.delivery.service.OrderService;
+import team7.delivery.status.OrderStatus;
 
 @Slf4j
 @RestController
@@ -37,4 +38,14 @@ public class OrderController {
     public ResponseEntity<OrderResponseDto> getOrderStatus(@PathVariable Long id) {
         return new ResponseEntity<>(orderService.getOrderStatus(id), HttpStatus.OK);
     }
+
+    /**
+     * 주문 상태 변경
+     */
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
+        Order orderStatus = orderService.updateOrderStatus(id, status);
+        return new ResponseEntity<>(orderStatus, HttpStatus.OK);
+    }
+
 }
