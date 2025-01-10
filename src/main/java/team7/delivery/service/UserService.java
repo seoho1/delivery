@@ -2,6 +2,7 @@ package team7.delivery.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import team7.delivery.dto.auth.Role;
 import team7.delivery.config.PasswordEncoder;
 import team7.delivery.dto.user.UserCreateResponseDto;
 import team7.delivery.entity.User;
@@ -17,7 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserCreateResponseDto createUser(String email, String password) {
+    public UserCreateResponseDto createUser(String email, String password, Role role) {
 
         checkRegisteredUser(email);
 
