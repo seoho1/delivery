@@ -28,6 +28,6 @@ public class UserCreateRequestDto {
 
     @NotNull
     @EnumValidator(enumClass = Role.class, message = "Invalid Role")
-    private final String role;
+    private final Role role;
 
 }

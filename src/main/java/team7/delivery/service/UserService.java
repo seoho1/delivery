@@ -1,11 +1,14 @@
 package team7.delivery.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import team7.delivery.dto.auth.Role;
+import team7.delivery.config.PasswordEncoder;
 import team7.delivery.dto.user.UserCreateResponseDto;
 import team7.delivery.entity.User;
-import team7.delivery.exception.CustomException;
+import team7.delivery.exception.ApiException;
+import team7.delivery.exception.ExceptionUtil;
+import team7.delivery.exception.util.ErrorMessage;
 import team7.delivery.repository.UserRepository;
 
 @Service
@@ -13,12 +16,15 @@ import team7.delivery.repository.UserRepository;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserCreateResponseDto createUser(String email, String password, String role) {
+    public UserCreateResponseDto createUser(String email, String password, Role role) {
 
         checkRegisteredUser(email);
 
-        User user = User.of(email, password, role);
+        String encodedPassword = passwordEncoder.encode(password);
+
+        User user = User.of(email, encodedPassword, role);
 
         User savedUser = userRepository.save(user);
 
@@ -26,15 +32,14 @@ public class UserService {
     }
 
     public void checkRegisteredUser(String email) {
-
         if(userRepository.findByEmail(email).isPresent()){
-            throw new CustomException(HttpStatus.BAD_REQUEST,"이미 등록된 사용자입니다.");
+            ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class);
         }
     }
 
     public void deactivateUser(Long id, String email, String password) {
         User foundUser = userRepository.findById(id)
-                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
 
         foundUser.deactivate();
         userRepository.save(foundUser);
