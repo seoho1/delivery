@@ -2,39 +2,43 @@ package team7.delivery.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-@WebFilter("/*")
-public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+@Component
+public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-            HttpServletResponse response) throws AuthenticationException {
-        Map<String, String[]> parameterMap = request.getParameterMap();
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+            FilterChain filterChain) throws ServletException, IOException {
 
-        String email = parameterMap.get("email")[0];
-        String password = parameterMap.get("password")[0];
+        if (request.getSession(false) != null) {
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                email, password);
+            Map<String, String[]> parameterMap = request.getParameterMap();
 
-        return this.getAuthenticationManager().authenticate(authenticationToken);
+            String email = getParameter(parameterMap, "email");
+            String password = getParameter(parameterMap, "password");
+
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    email, password);
+
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+        } else {
+            filterChain.doFilter(request, response);
+        }
     }
 
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        super.doFilter(request, response, chain);
+    private String getParameter(Map<String, String[]> parameterMap, String key) {
+        String[] values = parameterMap.get(key);
+        return (values != null && values.length > 0) ? values[0] : null;
     }
 }
+
