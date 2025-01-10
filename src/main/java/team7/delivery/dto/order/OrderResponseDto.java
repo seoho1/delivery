@@ -17,6 +17,7 @@ public class OrderResponseDto {
     private final OrderStatus status;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
+    private boolean isDeleted; // 메뉴 삭제 여부
 
 
 
@@ -27,7 +28,8 @@ public class OrderResponseDto {
                 order.getMenu().getId(),
                 order.getStatus(),
                 order.getCreated_At(),
-                order.getUpdated_at()
+                order.getUpdated_at(),
+                order.getMenu().isDeleted()
         );
     }
 }
