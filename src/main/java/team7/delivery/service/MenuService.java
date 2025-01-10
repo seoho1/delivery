@@ -24,12 +24,11 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final StoreRepository storeRepository;
 
-    public MenuDto CreateMemu(MenuRequestDto request/* int store_id*/){
-        Store store = storeRepository.findById(request.getStore_id()).orElseThrow(() -> new StoreException("가게가 없습니다.", HttpStatus.NOT_FOUND));
+    public MenuDto createMenu(MenuRequestDto request){
+        Store store = storeRepository.findById(request.getStoreId()).orElseThrow(() -> new StoreException("가게가 없습니다.", HttpStatus.NOT_FOUND));
         Menu menu = Menu.of(request,store);
         menuRepository.save(menu);
         return menuDto(menu);
-//        return MenuDto.menuDto(menu)
     }
 
     public MenuDto getMenu(Long menuId){
@@ -47,11 +46,13 @@ public class MenuService {
 
     }
     public void deleteMenu(Long menusId){
-        menuRepository.deleteById(menusId);
+        Menu menu = menuRepository.findActiveMenuById(menusId)
+                .orElseThrow(() -> new StoreException("삭제 메뉴가 없습니다.", HttpStatus.NOT_FOUND));
+        menu.delete();
+        menuRepository.save(menu);
     }
     private MenuDto menuDto(Menu menu) {
         return MenuDto.menuDto(menu);
     }
-//    MenuDto.menu(){return MenuDto.menuDto(menu);}
 
 }

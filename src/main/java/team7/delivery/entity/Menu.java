@@ -12,7 +12,7 @@ import team7.delivery.dto.menu.MenuRequestDto;
 public class Menu extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long menusId;
+    private Long Id;
     private String name;
     private int price;
 
@@ -30,13 +30,12 @@ public class Menu extends BaseEntity{
         return new Menu(null, request.getName(),request.getPrice(),request.getDescribe(),false, store);
     }
 
-    public static Menu off(Long menusId, MenuRequestDto request) {
-        return new Menu(menusId, request.getName(), request.getPrice(),request.getDescribe(), false, null);
+    public static Menu off(Long Id, MenuRequestDto request) {
+        return new Menu(Id, request.getName(), request.getPrice(),request.getDescribe(), false, null);
     }
 
-
-
-
-
+    public void delete() {
+        this.isDeleted = true;
+    }
 
 }

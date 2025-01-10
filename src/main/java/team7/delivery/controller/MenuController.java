@@ -21,8 +21,8 @@ public class MenuController {
     private final MenuService menuService;
 
     @PostMapping
-    public ResponseEntity<MenuDto> CreateMemu(@Valid @RequestBody MenuRequestDto request, HttpSession session){
-        return new ResponseEntity<>(menuService.CreateMemu(request), HttpStatus.CREATED);
+    public ResponseEntity<MenuDto> createMenu(@Valid @RequestBody MenuRequestDto request, HttpSession session){
+        return new ResponseEntity<>(menuService.createMenu(request), HttpStatus.CREATED);
     }
 
     @GetMapping("/{menusId}")
