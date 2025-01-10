@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "stores")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+
 public class Store extends BaseEntity{
 
     @Id
@@ -57,4 +58,5 @@ public class Store extends BaseEntity{
         public static Store of (String storeName,int minPrice, String openTime, String closeTime, Owner owner) {
             return new Store(storeName, minPrice, openTime, closeTime, owner);
     }
+
 }

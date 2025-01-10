@@ -1,15 +1,14 @@
 package team7.delivery.service;
 
-//import com.example.menu.dto.MenuDto;
-//import com.example.menu.dto.MenuRequestDto;
-//import com.example.menu.entity.Menu;
-//import com.example.menu.entity.Store;
-//import com.example.menu.repository.MenuRepository;
-//import com.example.menu.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import team7.delivery.dto.menu.MenuDto;
+import team7.delivery.dto.menu.MenuRequestDto;
 import team7.delivery.entity.Menu;
+import team7.delivery.entity.Store;
+import team7.delivery.exception.ApiException;
+import team7.delivery.exception.ExceptionUtil;
+import team7.delivery.exception.util.ErrorMessage;
 import team7.delivery.repository.MenuRepository;
 import team7.delivery.repository.StoreRepository;
 
@@ -19,13 +18,33 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final StoreRepository storeRepository;
 
-//    public MenuDto CreateMemo(MenuRequestDto request/* int store_id*/){
-//        Store store = storeRepository.findById(request.getStore_id()).orElseThrow(() -> new StoreException("가게가 없습니다.", HttpStatus.NOT_FOUND));
-//        Menu menu = Menu.of(request,store);
-//        menuRepository.save(menu);
-//        return menuDto(menu);
-//    }
+    public MenuDto createMenu(MenuRequestDto request){
+        Store store = storeRepository.findById(request.getStoreId()).orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
+        Menu menu = Menu.of(request,store);
+        menuRepository.save(menu);
+        return menuDto(menu);
+    }
 
+    public MenuDto getMenu(Long menuId){
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() ->ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
+        return menuDto(menu);
+    }
+
+    public MenuDto updateMenu(Long menusId,MenuRequestDto request){
+        Menu menu = menuRepository.findById(menusId)
+                .orElseThrow(()-> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
+        Menu.off(menusId,request);
+        menuRepository.save(menu);
+        return menuDto(menu);
+
+    }
+    public void deleteMenu(Long menusId){
+        Menu menu = menuRepository.findActiveMenuById(menusId)
+                .orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
+        menu.delete();
+        menuRepository.save(menu);
+    }
     private MenuDto menuDto(Menu menu) {
         return MenuDto.menuDto(menu);
     }
