@@ -7,13 +7,9 @@ package team7.delivery.service;
 //import com.example.menu.repository.MenuRepository;
 //import com.example.menu.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.Store;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import team7.delivery.dto.menu.MenuDto;
-import team7.delivery.dto.menu.MenuRequestDto;
 import team7.delivery.entity.Menu;
-import team7.delivery.exception.StoreException;
 import team7.delivery.repository.MenuRepository;
 import team7.delivery.repository.StoreRepository;
 
