@@ -34,9 +34,8 @@ public class Menu extends BaseEntity{
         return new Menu(Id, request.getName(), request.getPrice(),request.getDescribe(), false, null);
     }
 
-
-
-
-
+    public void delete() {
+        this.isDeleted = true;
+    }
 
 }

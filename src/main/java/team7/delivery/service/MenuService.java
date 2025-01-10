@@ -46,7 +46,10 @@ public class MenuService {
 
     }
     public void deleteMenu(Long menusId){
-        menuRepository.deleteById(menusId);
+        Menu menu = menuRepository.findActiveMenuById(menusId)
+                .orElseThrow(() -> new StoreException("삭제 메뉴가 없습니다.", HttpStatus.NOT_FOUND));
+        menu.delete();
+        menuRepository.save(menu);
     }
     private MenuDto menuDto(Menu menu) {
         return MenuDto.menuDto(menu);
