@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import team7.delivery.dto.order.CreateOrderRequestDto;
 import team7.delivery.dto.order.OrderResponseDto;
 import team7.delivery.entity.Order;
+import team7.delivery.exception.ApiException;
+import team7.delivery.exception.ExceptionUtil;
+import team7.delivery.exception.util.ErrorMessage;
 import team7.delivery.service.OrderService;
 import team7.delivery.status.OrderStatus;
 
@@ -44,6 +47,9 @@ public class OrderController {
      */
     @PutMapping("/{id}/status")
     public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
+        if (status == null) {
+            throw ExceptionUtil.throwErrorMessage(ErrorMessage.INVALID_STATUS, ApiException.class);
+        }
         Order orderStatus = orderService.updateOrderStatus(id, status);
         return new ResponseEntity<>(orderStatus, HttpStatus.OK);
     }
