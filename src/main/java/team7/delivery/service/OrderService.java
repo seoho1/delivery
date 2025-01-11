@@ -68,13 +68,13 @@ public class OrderService {
     public boolean canUpdateStatus(OrderStatus currentStatus, OrderStatus newStatus) {
         switch (currentStatus) {
             case PENDING -> {
-                return newStatus == OrderStatus.PENDING;
+                return newStatus == OrderStatus.PREPARING; // 대기중 -> 조리중
             }
             case PREPARING -> {
-                return newStatus == OrderStatus.DELIVERING;
+                return newStatus == OrderStatus.DELIVERING; // 조리중 -> 배달중
             }
             case DELIVERING -> {
-                return newStatus == OrderStatus.COMPLETED;
+                return newStatus == OrderStatus.COMPLETED; // 배달중 -> 배달완료
             }
             default -> {
                 return false;
