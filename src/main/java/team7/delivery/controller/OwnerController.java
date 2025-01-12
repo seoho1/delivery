@@ -22,7 +22,7 @@ public class OwnerController {
 
     private final OwnerService ownerService;
 
-    @PostMapping("/signup-owner")
+    @PostMapping("/signup")
     public ResponseEntity<OwnerCreateResponseDto> createOwner(@Valid @RequestBody Owner dto){
 
         OwnerCreateResponseDto owner = ownerService.createOwner(dto.getEmail(), dto.getPassword());

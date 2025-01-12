@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public void checkRegisteredUser(String email) {
-        if(userRepository.findByEmail(email).isPresent()){
+        if(!userRepository.findByEmail(email).isPresent()){
             ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class);
         }
     }
