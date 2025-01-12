@@ -53,7 +53,10 @@ public class StoreController {
     @PutMapping("/{storeId}")
     public ResponseEntity<StoreResponseDto> updateStore(@PathVariable Long storeId,
                                                         @Valid @RequestBody StoreRequestDto requestDto,
-                                                        @RequestAttribute Owner owner) {
+                                                        HttpSession session) {
+
+        Owner owner = (Owner) session.getAttribute("owner");
+
         StoreResponseDto updatedStore = storeService.updateStore(storeId, requestDto, owner);
         return new ResponseEntity<>(updatedStore, HttpStatus.OK);
     }

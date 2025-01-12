@@ -72,7 +72,7 @@ public class StoreService {
     public StoreResponseDto updateStore(Long storeId, StoreRequestDto requestDto, Owner owner) {
         Store store = storeRepository.findByIdAndIsDeletedFalse(storeId)
                 .orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.STORE_NOT_FOUND, ApiException.class));
-        if (!store.getOwner().equals(owner)) {
+        if (store.getOwner().equals(owner)) {
             throw ExceptionUtil.throwErrorMessage(ErrorMessage.FORBIDDEN_UPDATE, ApiException.class);
         }
 
