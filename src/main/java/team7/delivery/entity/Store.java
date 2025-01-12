@@ -1,15 +1,15 @@
 package team7.delivery.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
 @Table(name = "stores")
-@EntityListeners(AuditingEntityListener.class)
-//@NoArgsConstructor(access = Access)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+
 public class Store extends BaseEntity{
 
     @Id
@@ -31,11 +31,32 @@ public class Store extends BaseEntity{
     @Column
     private String closeTime;
 
-  /*  @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
-    private Owner owner;*/
-//
-//    public static Store of(String storeName, int minPrice, String openTime, String closeTime, Owner owner){
-//
-//    }
+    private Owner owner;
+
+    public Store(String storeName, int minPrice, String openTime, String closeTime, Owner owner) {
+        this.storeName = storeName;
+        this.minPrice = minPrice;
+        this.isDeleted = false;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.owner = owner;
+    }
+
+    public void update(String storeName, int minPrice, String openTime, String closeTime) {
+        this.storeName = storeName;
+        this.minPrice = minPrice;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+        public static Store of (String storeName,int minPrice, String openTime, String closeTime, Owner owner) {
+            return new Store(storeName, minPrice, openTime, closeTime, owner);
+    }
+
 }

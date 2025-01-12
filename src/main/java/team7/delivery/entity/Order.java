@@ -2,6 +2,9 @@ package team7.delivery.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import team7.delivery.status.OrderStatus;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -20,8 +23,11 @@ public class Order extends BaseEntity{
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
+    @Enumerated(EnumType.STRING)
     @Column
-    private String status;
+    private OrderStatus status;
+
+    private LocalDateTime orderTime;
 
     public Order(User user, Menu menu) {
         super();
@@ -29,5 +35,10 @@ public class Order extends BaseEntity{
 
     public Order() {
 
+    }
+
+    public Order(OrderStatus status, Order order) {
+
+        super();
     }
 }
