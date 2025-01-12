@@ -2,6 +2,7 @@ package team7.delivery.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import team7.delivery.dto.menu.MenuDto;
 import team7.delivery.dto.menu.MenuRequestDto;
 import team7.delivery.entity.Menu;
@@ -31,10 +32,11 @@ public class MenuService {
         return menuDto(menu);
     }
 
+    @Transactional
     public MenuDto updateMenu(Long menusId,MenuRequestDto request){
         Menu menu = menuRepository.findById(menusId)
                 .orElseThrow(()-> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
-        Menu.off(menusId,request);
+        menu.update(request.getName(), request.getPrice(), request.getDescribe());
         menuRepository.save(menu);
         return menuDto(menu);
 

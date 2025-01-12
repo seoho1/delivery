@@ -38,14 +38,14 @@ public class MenuController {
     }
 
     @PutMapping("/{menusId}")
-    public ResponseEntity<MenuDto> updateMemu(@PathVariable Long menusId,@Valid @RequestBody MenuRequestDto request){
+    public ResponseEntity<MenuDto> updateMenu(@PathVariable Long menusId,@Valid @RequestBody MenuRequestDto request){
         return new ResponseEntity<>(menuService.updateMenu(menusId,request), HttpStatus.OK);
     }
 
     @DeleteMapping("/{menusId}")
-    public ResponseEntity<Void> deleteMenu(@PathVariable Long menusId){
+    public String deleteMenu(@PathVariable Long menusId){
         menuService.deleteMenu(menusId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return "성공적으로 삭제되었습니다.";
     }
 
 }

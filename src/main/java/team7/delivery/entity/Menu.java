@@ -30,8 +30,10 @@ public class Menu extends BaseEntity{
         return new Menu(null, request.getName(),request.getPrice(),request.getDescribe(),false, store);
     }
 
-    public static Menu off(Long Id, MenuRequestDto request) {
-        return new Menu(Id, request.getName(), request.getPrice(),request.getDescribe(), false, null);
+    public void update(String name, int price, String description){
+        this.name = name;
+        this.price = price;
+        this.description =description;
     }
 
     public void delete() {
