@@ -43,9 +43,7 @@ public class ReviewService {
                 .orElseThrow(() ->  ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class)); //유저가 없습니다
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class)); //주문이 없습니다.
-//        if (!order.getStatus().equals(OrderStatus.COMPLETED)) {
-//            throw new StoreException("배달 완료 되지 않은 주문은 리뷰를 작성할 수 없습니다.", HttpStatus.BAD_REQUEST);
-//        }
+
         if (request.getRate()<1 || request.getRate()>5) {
             throw new ApiException("별점 점수에 해당하지 않습니다.",HttpStatus.BAD_REQUEST);
         }
