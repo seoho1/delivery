@@ -10,7 +10,7 @@ import team7.delivery.dto.auth.Role;
 @Getter
 @Table(name = "owners")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Owner {
+public class Owner extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

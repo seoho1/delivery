@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import team7.delivery.dto.owner.OwnerCreateRequestDto;
 import team7.delivery.entity.Owner;
 import team7.delivery.service.OwnerService;
 
@@ -19,7 +20,7 @@ public class OwnerController {
     private final OwnerService ownerService;
 
     @PostMapping("/signup-owner")
-    public ResponseEntity<OwneCreateResponseDto> createOwner(@Valid @RequestBody OwneCreateResponseDto dto){
+    public ResponseEntity<OwnerCreateRequestDto> createOwner(@Valid @RequestBody OwneCreateResponseDto dto){
 
         ownerService.createOwner(dto.getEmail(), dto.getPassword());
 
