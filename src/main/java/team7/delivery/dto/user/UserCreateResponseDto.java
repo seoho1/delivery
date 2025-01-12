@@ -21,7 +21,7 @@ public class UserCreateResponseDto {
 
         return new UserCreateResponseDto(
                 user.getEmail(),
-                user.getCreated_At().format(dtf),
+                user.getCreatedAt().format(dtf),
                 user.getUpdated_at().format(dtf)
         );
     }

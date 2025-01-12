@@ -10,6 +10,4 @@ public class CreateOrderRequestDto {
     private final Long userId;
     private final Long menuId;
 
-
-
 }

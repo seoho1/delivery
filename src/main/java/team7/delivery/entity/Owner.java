@@ -10,16 +10,19 @@ import team7.delivery.dto.auth.Role;
 @Getter
 @Table(name = "owners")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+
 public class Owner extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(unique = true)
     private String email;
 
     private String password;
+
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
@@ -38,5 +41,18 @@ public class Owner extends BaseEntity {
 
     public void deactivate() {
         this.isDeleted = true;
+
+    @Column
+    private boolean isOwner;
+
+    public Owner(String email, String password, boolean isOwner) {
+        this.email = email;
+        this.password = password;
+        this.isOwner = isOwner;
+    }
+
+    public boolean isOwner() {
+        return this.isOwner;
+
     }
 }
