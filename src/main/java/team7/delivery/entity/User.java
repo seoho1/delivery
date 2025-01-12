@@ -18,6 +18,7 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -26,20 +27,19 @@ public class User extends BaseEntity {
     private Boolean isDeleted = false;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.USER;
 
     protected User(){
 
     }
 
-    private User(String email, String password, Role role){
+    private User(String email, String password){
         this.email = email;
         this.password = password;
-        this.role = role;
     }
 
-    public static User of(String email, String password, Role role) {
-        return new User(email, password, role);
+    public static User of(String email, String password) {
+        return new User(email, password);
     }
 
     public void deactivate() {

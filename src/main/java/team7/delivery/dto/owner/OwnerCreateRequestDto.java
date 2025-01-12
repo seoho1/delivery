@@ -1,4 +1,4 @@
-package team7.delivery.dto.user;
+package team7.delivery.dto.owner;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,10 +9,9 @@ import lombok.RequiredArgsConstructor;
 import team7.delivery.dto.auth.Role;
 import team7.delivery.exception.EnumValidator;
 
-@RequiredArgsConstructor
 @Getter
-
-public class UserCreateRequestDto {
+@RequiredArgsConstructor
+public class OwnerCreateRequestDto {
 
     @Pattern(
             regexp = "^[a-zA-Z0-9_]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
@@ -29,6 +28,7 @@ public class UserCreateRequestDto {
 
     @NotNull
     @EnumValidator(enumClass = Role.class, message = "Invalid Role")
-    private final Role role = Role.USER;
+    private final Role role = Role.OWNER;
+
 
 }
