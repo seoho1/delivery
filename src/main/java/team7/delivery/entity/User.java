@@ -26,7 +26,7 @@ public class User extends BaseEntity {
     private Boolean isDeleted = false;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.USER;
 
     protected User(){
 

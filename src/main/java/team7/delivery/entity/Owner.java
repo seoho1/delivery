@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team7.delivery.dto.auth.Role;
 
 @Entity
 @Getter
@@ -15,12 +16,13 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String name;
-
-    @Column
     private String email;
 
-    @Column
     private String password;
+
+    @Column(nullable = false)
+    private Boolean isDeleted =false;
+
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.OWNER;
 }
