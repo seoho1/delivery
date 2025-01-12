@@ -21,7 +21,7 @@ public class OwnerCreateResponseDto {
 
         return new OwnerCreateResponseDto(
                 owner.getEmail(),
-                owner.getCreated_At().format(dtf),
+                owner.getCreatedAt().format(dtf),
                 owner.getUpdated_at().format(dtf)
         );
     }

@@ -23,6 +23,8 @@ public class Owner extends BaseEntity {
 
     private String password;
 
+    @Column
+    private boolean isOwner;
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
@@ -30,25 +32,18 @@ public class Owner extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role = Role.OWNER;
 
-    private Owner(String email, String password) {
+    private Owner(String email, String password, boolean isOwner) {
         this.email = email;
-        this. password = password;
+        this.password = password;
+        this.isOwner = isOwner;
     }
 
-    public static Owner of(String email, String password){
-        return new Owner(email, password);
+    public static Owner of(String email, String password, boolean isOwner) {
+        return new Owner(email, password, isOwner);
     }
 
     public void deactivate() {
         this.isDeleted = true;
-
-    @Column
-    private boolean isOwner;
-
-    public Owner(String email, String password, boolean isOwner) {
-        this.email = email;
-        this.password = password;
-        this.isOwner = isOwner;
     }
 
     public boolean isOwner() {

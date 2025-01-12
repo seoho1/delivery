@@ -18,13 +18,13 @@ public class OwnerService {
     private final OwnerRepository ownerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public OwnerCreateResponseDto createOwner(String email, String password){
+    public OwnerCreateResponseDto createOwner(String email, String password, boolean isOwner){
 
         checkRegisteredUser(email);
 
         String encodedPassword = passwordEncoder.encode(password);
 
-        Owner owner = Owner.of(email, encodedPassword);
+        Owner owner = Owner.of(email, encodedPassword, isOwner);
 
         Owner savedOwner = ownerRepository.save(owner);
 
