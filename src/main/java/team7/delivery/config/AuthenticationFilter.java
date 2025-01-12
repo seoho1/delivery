@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import javax.security.sasl.AuthenticationException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +22,7 @@ import team7.delivery.dto.auth.Role;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final AuthenticationManager authenticationManager;
@@ -36,7 +38,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
             Role role = (Role) session.getAttribute("role");
-
+            log.info("1 = {} ", role);
 //            String email = getParameter(parameterMap, "email");
 //          String password = getParameter(parameterMap, "password");
 

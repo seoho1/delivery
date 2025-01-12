@@ -24,7 +24,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/signup", "/auth/signin","/owners/**").permitAll()  // 누구나 접근 가능
+                        .requestMatchers("/users/signup", "/auth/**","/owners/**").permitAll()  // 누구나 접근 가능
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);

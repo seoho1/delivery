@@ -30,4 +30,14 @@ public class AuthController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @PostMapping("/owenr/signin")
+    public ResponseEntity<LoginResponseDto> ownerLogin(@Valid @RequestBody LoginRequestDto dto, HttpSession session) {
+        LoginResponseDto user = authService.ownerLogin(dto.getEmail(), dto.getPassword());
+        session.setAttribute("user", user.getId());
+        session.setAttribute("email", user.getEmail());
+        session.setAttribute("role", user.getRole());
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 }

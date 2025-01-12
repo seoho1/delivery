@@ -26,6 +26,8 @@ public class OwnerService {
 
         Owner owner = Owner.of(email, encodedPassword, isOwner);
 
+        System.out.println(owner.getRole());
+
         Owner savedOwner = ownerRepository.save(owner);
 
         return OwnerCreateResponseDto.of(savedOwner);
