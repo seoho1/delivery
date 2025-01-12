@@ -25,7 +25,7 @@ public class OrderResponseDto {
                 order.getUser().getId(),
                 order.getMenu().getId(),
                 order.getStatus(),
-                order.getCreated_At(),
+                order.getCreatedAt(),
                 order.getUpdated_at()
         );
     }

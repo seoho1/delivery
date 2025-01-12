@@ -16,9 +16,9 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     @CreatedDate
-    @Column(updatable = false)
 //    @Temporal(TemporalType.TIMESTAMP) 생략가능
-    private LocalDateTime created_At;
+    @Column(name = "createdAt",updatable = false)
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
     private LocalDateTime updated_at;
