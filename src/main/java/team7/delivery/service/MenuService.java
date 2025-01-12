@@ -18,8 +18,8 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final StoreRepository storeRepository;
 
-    public MenuDto createMenu(MenuRequestDto request){
-        Store store = storeRepository.findById(request.getStoreId()).orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
+    public MenuDto createMenu(MenuRequestDto request, Long StoreId){
+        Store store = storeRepository.findById(StoreId).orElseThrow(() -> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
         Menu menu = Menu.of(request,store);
         menuRepository.save(menu);
         return menuDto(menu);

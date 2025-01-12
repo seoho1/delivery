@@ -35,6 +35,11 @@ public class StoreController {
         Owner owner = (Owner) session.getAttribute("owner");
 
         StoreResponseDto responseDto = storeService.createStore(requestDto, owner);
+
+        Long storeId = responseDto.getId();
+
+        session.setAttribute("storeId", storeId);
+
         return ResponseEntity.ok(responseDto);
     }
 

@@ -22,7 +22,14 @@ public class MenuController {
 
     @PostMapping
     public ResponseEntity<MenuDto> createMenu(@Valid @RequestBody MenuRequestDto request, HttpSession session){
-        return new ResponseEntity<>(menuService.createMenu(request), HttpStatus.CREATED);
+
+        Long storeIdFromSession  = (Long) session.getAttribute("storeId");
+
+        if (storeIdFromSession  != null) {
+            request.setStoreId(storeIdFromSession);
+        }
+
+        return new ResponseEntity<>(menuService.createMenu(request, storeIdFromSession), HttpStatus.CREATED);
     }
 
     @GetMapping("/{menusId}")

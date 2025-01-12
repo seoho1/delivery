@@ -1,11 +1,10 @@
 package team7.delivery.dto.menu;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
 public class MenuRequestDto {
-    @NotNull
+
     private Long storeId;
     private String name;
     private int price;
@@ -19,6 +18,17 @@ public class MenuRequestDto {
     }
 
     public MenuRequestDto() {
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
+    // static factory method
+    public static MenuRequestDto of(Long storeId) {
+        MenuRequestDto dto = new MenuRequestDto();
+        dto.setStoreId(storeId);
+        return dto;
     }
 }
 
