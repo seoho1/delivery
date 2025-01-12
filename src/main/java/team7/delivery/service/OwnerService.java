@@ -4,7 +4,7 @@ package team7.delivery.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import team7.delivery.config.PasswordEncoder;
-import team7.delivery.dto.owner.OnwerCreateResponseDto;
+import team7.delivery.dto.owner.OwnerCreateResponseDto;
 import team7.delivery.entity.Owner;
 import team7.delivery.exception.ApiException;
 import team7.delivery.exception.ExceptionUtil;
@@ -18,7 +18,7 @@ public class OwnerService {
     private final OwnerRepository ownerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public OnwerCreateResponseDto createOwner(String email, String password){
+    public OwnerCreateResponseDto createOwner(String email, String password){
 
         checkRegisteredUser(email);
 
@@ -28,7 +28,7 @@ public class OwnerService {
 
         Owner savedOwner = ownerRepository.save(owner);
 
-        return OnwerCreateResponseDto.of(savedOwner);
+        return OwnerCreateResponseDto.of(savedOwner);
 
     }
 

@@ -8,7 +8,7 @@ import team7.delivery.entity.Owner;
 
 @RequiredArgsConstructor
 @Getter
-public class OnwerCreateResponseDto {
+public class OwnerCreateResponseDto {
 
     private final String email;
 
@@ -16,10 +16,10 @@ public class OnwerCreateResponseDto {
 
     private final String updatedAt;
 
-    public static OnwerCreateResponseDto of(Owner owner){
+    public static OwnerCreateResponseDto of(Owner owner){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        return new OnwerCreateResponseDto(
+        return new OwnerCreateResponseDto(
                 owner.getEmail(),
                 owner.getCreated_At().format(dtf),
                 owner.getUpdated_at().format(dtf)
