@@ -27,9 +27,9 @@ public class OrderResponseDto {
                 order.getUser().getId(),
                 order.getMenu().getId(),
                 order.getStatus(),
-                order.getMenu().isDeleted()
                 order.getCreatedAt(),
-                order.getUpdated_at()
+                order.getUpdated_at(),
+                order.getMenu().isDeleted()
         );
     }
 }
