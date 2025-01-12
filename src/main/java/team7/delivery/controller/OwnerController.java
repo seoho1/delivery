@@ -25,7 +25,7 @@ public class OwnerController {
     @PostMapping("/signup")
     public ResponseEntity<OwnerCreateResponseDto> createOwner(@Valid @RequestBody Owner dto){
 
-        OwnerCreateResponseDto owner = ownerService.createOwner(dto.getEmail(), dto.getPassword(), dto.isOwner());
+        OwnerCreateResponseDto owner = ownerService.createOwner(dto.getEmail(), dto.getPassword());
 
         return new ResponseEntity<>(owner, HttpStatus.CREATED);
     }

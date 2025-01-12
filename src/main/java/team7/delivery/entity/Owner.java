@@ -8,7 +8,7 @@ import team7.delivery.dto.auth.Role;
 
 @Entity
 @Getter
-@Table(name = "owners")
+@Table(name = "owner")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 
 public class Owner extends BaseEntity {
@@ -23,31 +23,22 @@ public class Owner extends BaseEntity {
 
     private String password;
 
-    @Column
-    private boolean isOwner;
-
     @Column(nullable = false)
     private Boolean isDeleted = false;
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.OWNER;
 
-    private Owner(String email, String password, boolean isOwner) {
+    private Owner(String email, String password) {
         this.email = email;
         this.password = password;
-        this.isOwner = isOwner;
     }
 
-    public static Owner of(String email, String password, boolean isOwner) {
-        return new Owner(email, password, isOwner);
+    public static Owner of(String email, String password) {
+        return new Owner(email, password);
     }
 
     public void deactivate() {
         this.isDeleted = true;
-    }
-
-    public boolean isOwner() {
-        return this.isOwner;
-
     }
 }

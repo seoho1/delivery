@@ -38,7 +38,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
             Role role = (Role) session.getAttribute("role");
-            log.info("1 = {} ", role);
 //            String email = getParameter(parameterMap, "email");
 //          String password = getParameter(parameterMap, "password");
 

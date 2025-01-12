@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team7.delivery.dto.auth.LoginRequestDto;
 import team7.delivery.dto.auth.LoginResponseDto;
+import team7.delivery.entity.Owner;
 import team7.delivery.service.AuthService;
 
 @RestController
@@ -32,12 +33,18 @@ public class AuthController {
 
     @PostMapping("/owenr/signin")
     public ResponseEntity<LoginResponseDto> ownerLogin(@Valid @RequestBody LoginRequestDto dto, HttpSession session) {
-        LoginResponseDto user = authService.ownerLogin(dto.getEmail(), dto.getPassword());
-        session.setAttribute("user", user.getId());
-        session.setAttribute("email", user.getEmail());
-        session.setAttribute("role", user.getRole());
+        LoginResponseDto owner = authService.ownerLogin(dto.getEmail(), dto.getPassword());
+        session.setAttribute("user", owner.getId());
+        session.setAttribute("email", owner.getEmail());
+        session.setAttribute("role", owner.getRole());
+        Owner createdOwner = Owner.of(dto.getEmail(), dto.getPassword());
+        session.setAttribute("owner", createdOwner);
 
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(owner, HttpStatus.OK);
+    }
+
+    public void setOwnerInSession(Owner owner, HttpSession session) {
+        session.setAttribute("owner", owner);
     }
 
 }

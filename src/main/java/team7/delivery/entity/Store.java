@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 @Entity
 @Getter
-@Table(name = "stores")
+@Table(name = "store")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 
 public class Store extends BaseEntity{

@@ -18,13 +18,13 @@ public class OwnerService {
     private final OwnerRepository ownerRepository;
     private final CustomPasswordEncoder passwordEncoder;
 
-    public OwnerCreateResponseDto createOwner(String email, String password, boolean isOwner){
+    public OwnerCreateResponseDto createOwner(String email, String password){
 
         checkRegisteredUser(email);
 
         String encodedPassword = passwordEncoder.encode(password);
 
-        Owner owner = Owner.of(email, encodedPassword, isOwner);
+        Owner owner = Owner.of(email, encodedPassword);
 
         System.out.println(owner.getRole());
 
@@ -47,4 +47,6 @@ public class OwnerService {
         ownerRepository.save(foundOwner);
 
     }
+
+
 }

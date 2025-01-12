@@ -1,7 +1,9 @@
 package team7.delivery.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +18,8 @@ import team7.delivery.exception.ApiException;
 import team7.delivery.exception.ExceptionUtil;
 import team7.delivery.exception.util.ErrorMessage;
 import team7.delivery.repository.MenuRepository;
+import team7.delivery.repository.OwnerRepository;
 import team7.delivery.repository.StoreRepository;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +27,16 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
     private final MenuRepository menuRepository;
+    private final OwnerRepository ownerRepository;
 
     public StoreResponseDto createStore(StoreRequestDto requestDto, Owner owner) {
 
-        if (!owner.isOwner()) {
-            throw ExceptionUtil.throwErrorMessage(ErrorMessage.OWNER_FORBIDDEN, ApiException.class);
+        Optional<Owner> existingOwner = ownerRepository.findByEmail(owner.getEmail());
+        if (!existingOwner.isPresent()) {
+            // Owner가 DB에 없다면 새로 저장
+            ownerRepository.save(owner);
+        } else {
+            owner = existingOwner.get();  // 이미 존재하는 owner 객체 사용
         }
 
         long storeCount = storeRepository.countByOwnerAndIsDeletedFalse(owner);
