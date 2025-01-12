@@ -19,7 +19,7 @@ public class Menu extends BaseEntity{
     private String description;
     private boolean isDeleted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
