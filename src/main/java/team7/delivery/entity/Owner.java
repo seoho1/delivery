@@ -21,8 +21,21 @@ public class Owner {
     private String password;
 
     @Column(nullable = false)
-    private Boolean isDeleted =false;
+    private Boolean isDeleted = false;
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.OWNER;
+
+    private Owner(String email, String password) {
+        this.email = email;
+        this. password = password;
+    }
+
+    public static Owner of(String email, String password){
+        return new Owner(email, password);
+    }
+
+    public void deactivate() {
+        this.isDeleted = true;
+    }
 }
