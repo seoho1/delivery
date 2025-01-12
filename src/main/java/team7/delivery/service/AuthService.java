@@ -2,7 +2,7 @@ package team7.delivery.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import team7.delivery.config.PasswordEncoder;
+import team7.delivery.config.CustomPasswordEncoder;
 import team7.delivery.dto.auth.LoginResponseDto;
 import team7.delivery.entity.User;
 import team7.delivery.exception.ApiException;
@@ -15,7 +15,7 @@ import team7.delivery.repository.UserRepository;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final CustomPasswordEncoder passwordEncoder;
 
 
     public LoginResponseDto login(String email, String password) {

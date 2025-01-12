@@ -24,6 +24,8 @@ public class AuthController {
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto dto, HttpSession session) {
         LoginResponseDto user = authService.login(dto.getEmail(), dto.getPassword());
         session.setAttribute("user", user.getId());
+        session.setAttribute("email", user.getEmail());
+        session.setAttribute("role", user.getRole());
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
