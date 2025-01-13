@@ -21,7 +21,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto dto, HttpSession session) {
         LoginResponseDto user = authService.login(dto.getEmail(), dto.getPassword());
         session.setAttribute("user", user.getId());
@@ -31,7 +31,7 @@ public class AuthController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/owenr/signin")
+    @PostMapping("/owners/login")
     public ResponseEntity<LoginResponseDto> ownerLogin(@Valid @RequestBody LoginRequestDto dto, HttpSession session) {
         LoginResponseDto owner = authService.ownerLogin(dto.getEmail(), dto.getPassword());
         session.setAttribute("user", owner.getId());

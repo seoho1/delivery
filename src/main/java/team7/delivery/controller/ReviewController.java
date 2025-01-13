@@ -19,7 +19,7 @@ public class ReviewController {
 
     @PostMapping
     public ResponseEntity<ReviewResponseDto> createReview(@RequestBody ReviewRequestDto request, HttpSession session) {
-        Long userId = (Long) session.getAttribute("userId");
+        Long userId = (Long) session.getAttribute("user");
         return new ResponseEntity<>(reviewService.createReview(request, userId, session), HttpStatus.OK);
 
     }

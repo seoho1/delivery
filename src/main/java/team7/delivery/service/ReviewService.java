@@ -33,7 +33,7 @@ public class ReviewService {
 
     public ReviewResponseDto createReview(ReviewRequestDto request, long userId, HttpSession session){
 
-        Long orderId = (Long) session.getAttribute("orderId");
+        Long orderId = request.getOrderId();
 
         if (orderId == null) {
             throw new ApiException("주문 정보가 없습니다.", HttpStatus.BAD_REQUEST);

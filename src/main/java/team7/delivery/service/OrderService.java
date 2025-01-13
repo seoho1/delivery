@@ -28,7 +28,7 @@ public class OrderService {
     private final MenuRepository menuRepository;
 
     @Transactional
-    public Order createOrder(Long userId, Long menuId) {
+    public OrderResponseDto createOrder(Long userId, Long menuId) {
 
         User user = userRepository.findById(userId).orElseThrow(()-> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
         Menu menu = menuRepository.findById(menuId).orElseThrow(()-> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
@@ -48,7 +48,9 @@ public class OrderService {
 //            throw ExceptionUtil.throwErrorMessage(ErrorMessage.STORE_CLOSED, ApiException.class);
 //        }
 
-        return orderRepository.save(new Order(user, menu));
+        Order savedeOrder = orderRepository.save(new Order(user, menu));
+
+        return OrderResponseDto.of(savedeOrder);
     }
 
     public OrderResponseDto getOrderStatus(Long id) {
@@ -57,12 +59,14 @@ public class OrderService {
     }
 
     @Transactional
-    public Order updateOrderStatus(Long id, OrderStatus newStatus) {
+    public OrderResponseDto updateOrderStatus(Long id, OrderStatus newStatus) {
         Order order = orderRepository.findById(id).orElseThrow(()-> ExceptionUtil.throwErrorMessage(ErrorMessage.ENTITY_NOT_FOUND, ApiException.class));
         if(!canUpdateStatus(order.getStatus(), newStatus)) {
             throw ExceptionUtil.throwErrorMessage(ErrorMessage.INVALID_STATUS, ApiException.class);
         }
-        return orderRepository.save(new Order(newStatus, order));
+        order.updateStatus(newStatus);
+        orderRepository.save(order);
+        return OrderResponseDto.of(order);
     }
 
     public boolean canUpdateStatus(OrderStatus currentStatus, OrderStatus newStatus) {
