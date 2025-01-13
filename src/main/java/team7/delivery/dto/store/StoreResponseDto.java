@@ -5,6 +5,9 @@ import team7.delivery.entity.Store;
 
 import java.time.LocalTime;
 
+/**
+ * StoreResponseDto
+ */
 @Getter
 public class StoreResponseDto {
 
@@ -15,6 +18,11 @@ public class StoreResponseDto {
     private final LocalTime closeTime;
     private final boolean isDeleted;
 
+    /**
+     * 생성자
+     *
+     * @param store 엔티티를 기반으로 DTO 생성
+     */
     public StoreResponseDto(Store store) {
         this.id = store.getId();
         this.storeName = store.getStoreName();
@@ -24,6 +32,12 @@ public class StoreResponseDto {
         this.isDeleted = store.isDeleted();
     }
 
+    /**
+     * 정적 팩토리
+     *
+     * @param store 엔티티
+     * @return 생성된 StoreResponseDto 객체
+     */
     public static StoreResponseDto of(Store store) {
         return new StoreResponseDto(store);
     }
