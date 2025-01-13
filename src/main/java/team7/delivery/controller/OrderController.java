@@ -1,13 +1,20 @@
 package team7.delivery.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import team7.delivery.dto.order.CreateOrderRequestDto;
 import team7.delivery.dto.order.OrderResponseDto;
-import team7.delivery.entity.Order;
 import team7.delivery.exception.ApiException;
 import team7.delivery.exception.ExceptionUtil;
 import team7.delivery.exception.util.ErrorMessage;
@@ -26,10 +33,13 @@ public class OrderController {
      * 주문 생성
      */
     @PostMapping("/orders")
-    public ResponseEntity<Order> createOrder(@RequestBody CreateOrderRequestDto requestDto){
+    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody CreateOrderRequestDto requestDto, HttpSession
+            httpSession){
 
         log.info("userid:{} , menuId : {} ", requestDto.getUserId(),requestDto.getMenuId());
-        Order order = orderService.createOrder(requestDto.getUserId(), requestDto.getMenuId());
+        OrderResponseDto order = orderService.createOrder(requestDto.getUserId(),
+                requestDto.getMenuId());
+
 
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
@@ -46,12 +56,12 @@ public class OrderController {
      * 주문 상태 변경
      */
     @PutMapping("/{id}/status")
-    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
+    public ResponseEntity<OrderResponseDto> updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
         if (status == null) {
             throw ExceptionUtil.throwErrorMessage(ErrorMessage.INVALID_STATUS, ApiException.class);
         }
-        Order orderStatus = orderService.updateOrderStatus(id, status);
-        return new ResponseEntity<>(orderStatus, HttpStatus.OK);
+        OrderResponseDto orderResponseDto = orderService.updateOrderStatus(id, status);
+        return new ResponseEntity<>(orderResponseDto, HttpStatus.OK);
     }
 
 }

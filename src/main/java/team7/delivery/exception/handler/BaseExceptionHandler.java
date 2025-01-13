@@ -1,21 +1,19 @@
 package team7.delivery.exception.handler;
 
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import team7.delivery.exception.BaseException;
+import team7.delivery.exception.ExceptionUtil;
 import team7.delivery.exception.util.ErrorMessageGenerator;
 import team7.delivery.exception.util.ErrorResponse;
-import team7.delivery.exception.ExceptionUtil;
 import team7.delivery.exception.util.ValidationErrorCode;
-
-import java.util.List;
 
 @ControllerAdvice
 public class BaseExceptionHandler {
 
     // 공통 예외 처리 로직
-    @ExceptionHandler(BaseException.class)
+//    @ExceptionHandler(BaseException.class)
     protected ResponseEntity<ErrorResponse> handleException(BaseException e, List<String> validFields) {
         List<String> errorField = e.getErrorField();
 

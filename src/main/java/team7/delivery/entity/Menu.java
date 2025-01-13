@@ -24,10 +24,19 @@ public class Menu extends BaseEntity{
     private Store store;
 
     protected Menu() {
+
+    }
+
+    private Menu(String name, int price, String description, boolean isDeleted, Store store) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.isDeleted = isDeleted;
+        this.store = store;
     }
 
     public static Menu of(MenuRequestDto request, Store store) {
-        return new Menu(null, request.getName(),request.getPrice(),request.getDescribe(),false, store);
+        return new Menu(request.getName(),request.getPrice(),request.getDescribe(),false, store);
     }
 
     public void update(String name, int price, String description){

@@ -25,12 +25,13 @@ public class Order extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     @Column
-    private OrderStatus status;
+    private OrderStatus status = OrderStatus.PENDING;
 
     private LocalDateTime orderTime;
 
     public Order(User user, Menu menu) {
-        super();
+        this.user = user;
+        this.menu = menu;
     }
 
     public Order() {
@@ -40,5 +41,9 @@ public class Order extends BaseEntity{
     public Order(OrderStatus status, Order order) {
 
         super();
+    }
+
+    public void updateStatus(OrderStatus status) {
+        this.status = status;
     }
 }

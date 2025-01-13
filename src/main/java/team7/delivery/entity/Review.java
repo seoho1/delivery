@@ -37,9 +37,9 @@ public class Review extends BaseEntity {
                 null,
                 request.getComment(),
                 request.getRate(),
-                null,
-                null,
-                null
+                user,
+                order,
+                order.getMenu().getStore()
         );
     }
 
