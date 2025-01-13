@@ -24,7 +24,7 @@ import team7.delivery.status.OrderStatus;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -32,7 +32,7 @@ public class OrderController {
     /**
      * 주문 생성
      */
-    @PostMapping("/orders")
+    @PostMapping
     public ResponseEntity<OrderResponseDto> createOrder(@RequestBody CreateOrderRequestDto requestDto, HttpSession
             httpSession){
 
